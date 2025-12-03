@@ -1,0 +1,221 @@
+/* Estilo geral */
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+.botao{
+  background-color:#5c6b4b;
+  color: black;
+  padding: 3px;
+  font-size: 16px;
+  border: 2px solid rgb(33, 34, 33);
+  border-radius: 5px;
+}
+
+.botao:hover{
+  background-color: rgb(230, 219, 210);
+  color: #000000;
+  border: 2px solid rgb(14, 13, 12);
+}
+
+/* FIM Estilo geral */
+
+/*LOGIN*/
+
+#login-form{
+  background-color: #3d4831;
+  padding: 10px;
+  width: 350px;
+  border-radius: 25px;
+}
+
+#login-form input{
+  width: 300px;
+}
+
+.titulo_login{
+  color: #000000;
+  background-color: #5c6b4b;
+  border: 1px solid #5c6b4b;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/*FIM LOGIN*/
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #3d4831, #5c6b4b);
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px #cdc5b7; 
+}
+  
+.offcanvas {
+  background: linear-gradient(to right, #3d4831, #5c6b4b);
+  color: white;
+}
+
+.navbar .nav-link {
+  color:#ffffff;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+  background-color: #cdc5b7;
+  border: 1px solid #695841;
+  border-radius: 10px;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+  background-color: #695841;
+  border: 1px solid #cdc5b7;
+  border-radius: 10px;
+}
+
+.navbar-toggler {
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/*FIM Navbar */
+
+/*HOME*/
+
+.navcards{
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+
+.cardsgeral{
+  color:#5c6b4b;
+  scroll-behavior: smooth; 
+  width: 100%;
+}
+
+.cardsespecifico{
+  width: 18rem; 
+  background-color: RGB(155, 125, 97); 
+  color: #cdc5b7; 
+  font-family: 'Times new roman';
+}
+
+.color{
+  color: #cdc5b7;
+}
+
+.fontes{
+  font-family: 'Times new roman';
+}
+
+.card {
+  border: 1px solid #cdc5b7;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+
+.alert{
+  width: 400px;
+  margin: 0 30px 0 40px;
+}
+/*FIM HOME*/
+
+/*PLANILHAS*/
+.tabela{
+  border: 1px;
+}
+
+.botaopla{
+  background-color:#5c6b4b;
+  width: 200px;
+  color: rgb(255, 255, 255);
+  padding: 3px;
+  font-size: 16px;
+  border: 2px solid #695841;
+  border-radius: 5px;
+  
+}
+
+.botaopla:hover{
+  background-color: rgb(230, 219, 210);
+  color: #000000;
+  border: 2px solid #0e0d0c;
+}
+/*FIM PLANILHAS*/
+
+/*GUIA TEÓRICO*/
+
+.guia_teorico{
+  margin: 10px;
+  text-align: justify;
+}
+
+.titulo_guia{
+  color: #3d4831;
+  font-weight: bold;
+}
+
+.texto_guia{
+  font-size: 20px;
+  margin-right: 30px;
+}
+
+.guia_teorico ul{
+  font-size: 20px;
+}
+
+.div{
+  background-color: #3d4831;
+  height: 2px;
+  width: 40vw;
+}
+
+.div2{
+  height: 2px;
+  width: 60vw;
+}
+
+.ps{
+  margin-left: 20px;
+}
+
+/*FIM GUIA TEÓRICO*/
+
+/*Ajuda*/
+
+#contatos{
+  border: solid 2px #5c6b4b;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.duvidas{
+  margin: 5px;
+}
+
+/*FIM AJUDA*/
+
+

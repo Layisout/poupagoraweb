@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Planilhas{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">Adicionar Transação</h2>
+        <form action="{{ url_for('adicionar_transacao') }}" method="POST">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" name="descricao" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="tipo_pagamento">Forma de compra:</label>
+                    <select id="tipo_pagamento" name="tipo_pagamento" class="form-control" required>
+                        <option value="dinheiro">Dinheiro físico</option>
+                        <option value="cartao">Cartão</option>
+                    </select>
+                </div>
+                
+                <!-- Campos adicionais para cartão -->
+                <div id="parcelamento_opcoes" class="col-md-4 mb-3 d-none">
+                    <label for="parcelas">Quantas parcelas?</label>
+                    <select id="parcelas" name="parcelas" class="form-control">
+                        {% for i in range(1, 13) %}
+                            <option value="{{ i }}">{{ i }}x</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div id="juros_opcoes" class="col-md-4 mb-3 d-none">
+                    <label for="com_juros">Com juros?</label>
+                    <select id="com_juros" name="com_juros" class="form-control">
+                        <option value="nao">Não</option>
+                        <option value="sim">Sim</option>
+                    </select>
+                </div>
+                
+                <div id="taxa_juros_opcoes" class="col-md-4 mb-3 d-none">
+                    <label for="taxa_juros">Taxa de juros (%):</label>
+                    <input type="number" id="taxa_juros" name="taxa_juros" class="form-control" step="0.01">
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label for="categoria">Categoria:</label>
+                    <input type="text" id="categoria" name="categoria" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="data">Data:</label>
+                    <input type="date" id="data" name="data" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="valor">Valor:</label>
+                    <input type="number" id="valor" name="valor" class="form-control" step="0.01" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo" class="form-control" required>
+                        <option value="Entrada">Entrada</option>
+                        <option value="Saída">Saída</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="botaopla btn btn-primary">Adicionar Transação</button>
+        </form>
+
+        <hr class="my-4">
+        <h2 class="mb-4 text-center">Todas as transações</h2>
+        <div class="table-responsive">
+            {{ tabela_html|safe }}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("tipo_pagamento").addEventListener("change", function() {
+            let pagamento = this.value;
+            let parcelasDiv = document.getElementById("parcelamento_opcoes");
+            let jurosDiv = document.getElementById("juros_opcoes");
+            let taxaJurosDiv = document.getElementById("taxa_juros_opcoes");
+
+            if (pagamento === "cartao") {
+                parcelasDiv.classList.remove("d-none");
+                jurosDiv.classList.remove("d-none");
+            } else {
+                parcelasDiv.classList.add("d-none");
+                jurosDiv.classList.add("d-none");
+                taxaJurosDiv.classList.add("d-none");
+            }
+        });
+
+        document.getElementById("com_juros").addEventListener("change", function() {
+            let taxaJurosDiv = document.getElementById("taxa_juros_opcoes");
+            if (this.value === "sim") {
+                taxaJurosDiv.classList.remove("d-none");
+            } else {
+                taxaJurosDiv.classList.add("d-none");
+            }
+        });
+    </script>
+{% endblock %}

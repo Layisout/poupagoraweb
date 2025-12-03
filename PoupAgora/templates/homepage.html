@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="mt-3">
+    <h2 class="mb-4 text-center">Resumo Financeiro</h2>
+
+    <!-- Resumo Financeiro -->
+    <div class="row justify-content-center text-center">
+        <div class="col-md-3 mb-3">
+            <div class="alert alert-success" style="background-color: #5c6b4b; border-color:#695841; color:white;">
+                <h5>Entrada Total</h5>
+                <p>Total de Entradas: R$ {{ total_entrada | round(2) }}</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="alert alert-danger" style="background-color: #5c6b4b; border-color:#695841; color:white">
+                <h5>Saída Total</h5>
+                <p>Total de Saídas: R$ {{ total_saida | round(2) }}</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="alert alert-info" style="background-color: #5c6b4b; border-color:#695841; color:white">
+                <h5>Saldo Total</h5>
+                <p>Saldo Total: R$ {{ saldo_total | round(2) }}</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <hr>
+
+    <!-- Cards de Transações -->
+    <h2 class="mb-4 text-center">Transações Recentes</h2>
+    <div class="position-relative overflow-hidden" style="width: 100%; max-width: 1200px; margin: auto;">
+        <!-- Botão de navegação esquerdo -->
+        <button 
+            class="botao btn btn-primary position-absolute start-0 z-3 navcards "
+            style="background-color: #5c6b4b; color: white; border-color: #5c6b4b;"
+            onclick="scrollCards(-1)">
+            &larr;
+        </button>
+
+        <!-- Container dos Cards -->
+        <div id="cardContainer" class="d-flex flex-row p-3" 
+            style="overflow: hidden; scroll-behavior: smooth; white-space: nowrap; width: 100%; gap: 20px;">
+            {% for transacao in transacoes %}
+            <div class="card flex-shrink-0" style="width: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div class="card-body">
+                    <h5 class="card-title">{{ transacao.descricao }}</h5>
+                    <p class="card-text">
+                        <strong>Data:</strong> {{ transacao.data }}<br>
+                        <strong>Valor:</strong> R$ {{ transacao.valor }}<br>
+                        <strong>Tipo:</strong> {{ transacao.tipo }}
+                    </p>
+                    {% if transacao.total_parcelas > 1 %}
+                        <p class="card-text">
+                            <strong>Parcela:</strong> {{ transacao.parcela_atual }} de {{ transacao.total_parcelas }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <form action="{{ url_for('pagar_parcela', transacao_id=transacao.id) }}" method="post" onsubmit="return confirm('Tem certeza que deseja marcar como pago?');">
+                        <button type="submit" class="btn btn-success" style="background-color: #5c6b4b; color: white; border-color: #5c6b4b;">Pago</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Botão de navegação direito -->
+        <button 
+            class="botao btn btn-primary position-absolute end-0 z-3 navcards botão" 
+            style="background-color: #5c6b4b; color: white; border-color: #5c6b4b;"
+            onclick="scrollCards(1)">
+            &rarr;
+        </button>
+    </div>
+</div>
+
+<!-- Script para rolagem dos cards -->
+<script>
+    function scrollCards(direction) {
+        let container = document.getElementById("cardContainer");
+        let card = document.querySelector(".card");
+
+        if (!card) return; // Evita erro se não houver cartões
+
+        let cardWidth = card.offsetWidth + 20; // Card width + margin
+        let scrollAmount = cardWidth * 2; // Rola 2 cards por vez
+        container.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+    }
+</script>
+
+<!-- Gráficos -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Gráfico de barras -->
+        <div class="col-md-8">
+            <img src="{{ url_for('static', filename='graphs/bar_chart.png') }}" alt="Gráfico de Barras" class="img-fluid">
+        </div>
+
+        <!-- Gráficos de pizza -->
+        <div class="col-md-4 d-flex flex-column align-items-center">
+            <div class="mb-4" style="width: 200px;">
+                <img src="{{ url_for('static', filename='graphs/pie_chart_week.png') }}" alt="Pizza Semana" class="img-fluid">
+            </div>
+            <div style="width: 200px;">
+                <img src="{{ url_for('static', filename='graphs/pie_chart_month.png') }}" alt="Pizza Mês" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendário -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center fontes">Calendário</h2>
+            <div id="calendarContainer" class="bg-light p-3 rounded shadow-sm">
+                <iframe 
+                    src="https://calendar.google.com/calendar/embed?src=osore.gamer%40gmail.com&ctz=America%2FSao_Paulo&showTitle=0&showPrint=0" 
+                    style="border: 0" 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0" 
+                    scrolling="no">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
